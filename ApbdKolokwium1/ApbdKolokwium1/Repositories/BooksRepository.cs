@@ -24,14 +24,14 @@ public class BooksRepository : IBooksRepository
                             where books.PK = @1";
         com.Parameters.AddWithValue("@1", id);
 
-        BookGenresDto bookAuthorsDto = null;
+        BookGenresDto bookGenresDto = null;
         
         using var reader = await com.ExecuteReaderAsync();
         while (await reader.ReadAsync())
         {
-            if (bookAuthorsDto is null)
+            if (bookGenresDto is null)
             {
-                bookAuthorsDto = new BookGenresDto()
+                bookGenresDto = new BookGenresDto()
                 {
                     Id = reader.GetInt32(0),
                     Title = reader.GetString(1),
@@ -39,11 +39,11 @@ public class BooksRepository : IBooksRepository
                 };
             }
 
-            bookAuthorsDto.Genres.Add(reader.GetString(2));
+            bookGenresDto.Genres.Add(reader.GetString(2));
         }
-        if (bookAuthorsDto is null) throw new Exception("book not found");
+        if (bookGenresDto is null) throw new Exception("book not found");
 
-        return bookAuthorsDto;
+        return bookGenresDto;
     }
 
     public async Task<BookGenresDto> AddNewBook(NewBookDto newBookDto)
