@@ -12,7 +12,7 @@ public class BooksRepository : IBooksRepository
         _configuration = configuration;
     }
 
-    public async Task<BookGenresDto> GetBookGenresForId(int id)
+    public async Task<BookGenresDto> GetBookForId(int id)
     {
         using var con = new SqlConnection(_configuration.GetConnectionString("Default"));
         await con.OpenAsync();

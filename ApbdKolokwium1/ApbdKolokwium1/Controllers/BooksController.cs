@@ -16,13 +16,13 @@ public class BooksController : ControllerBase
     }
 
     [HttpGet("/{id}/genres")]
-    public async Task<IActionResult> GetBookGenresById(int id)
+    public async Task<IActionResult> GetBookById(int id)
     {
         if (await _booksRepository.BookDoesntExist(id))
         {
             return NotFound($"Book of given id = {id} doesnt exist id database");
         }
-        var result = await _booksRepository.GetBookGenresForId(id);
+        var result = await _booksRepository.GetBookForId(id);
         return Ok(result);
     }
 
